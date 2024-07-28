@@ -1,3 +1,4 @@
+import { FrontMatter } from "$sb/lib/frontmatter.ts";
 import { syscall } from "../syscall.ts";
 import { AttachmentMeta, FileMeta, PageMeta } from "../types.ts";
 
@@ -7,6 +8,10 @@ export function listPages(unfiltered = false): Promise<PageMeta[]> {
 
 export function getPageMeta(name: string): Promise<PageMeta> {
   return syscall("space.getPageMeta", name);
+}
+
+export function getPageFrontMatter(name: string): Promise<FrontMatter> {
+  return syscall("space.getPageFrontMatter", name);
 }
 
 export function readPage(

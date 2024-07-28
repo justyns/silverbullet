@@ -1,6 +1,7 @@
 import { AttachmentMeta, FileMeta, PageMeta } from "../../plug-api/types.ts";
 import { SysCallMapping } from "../../lib/plugos/system.ts";
 import type { Space } from "../../common/space.ts";
+import { FrontMatter } from "$sb/lib/frontmatter.ts";
 
 /**
  * Almost the same as web/syscalls/space.ts except leaving out client-specific stuff
@@ -15,6 +16,12 @@ export function spaceReadSyscalls(space: Space): SysCallMapping {
     },
     "space.getPageMeta": (_ctx, name: string): Promise<PageMeta> => {
       return space.getPageMeta(name);
+    },
+    "space.getPageFrontMatter": async (
+      _ctx,
+      name: string,
+    ): Promise<FrontMatter> => {
+      return await space.getPageFrontMatter(name);
     },
     "space.listPlugs": (): Promise<FileMeta[]> => {
       return space.listPlugs();

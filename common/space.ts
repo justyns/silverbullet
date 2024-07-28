@@ -4,6 +4,9 @@ import { plugPrefix } from "$common/spaces/constants.ts";
 import { AttachmentMeta, FileMeta, PageMeta } from "../plug-api/types.ts";
 import { EventHook } from "./hooks/event.ts";
 import { safeRun } from "../lib/async.ts";
+import { parse } from "$common/markdown_parser/parse_tree.ts";
+import { extendedMarkdownLanguage } from "$common/markdown_parser/parser.ts";
+import { extractFrontmatter, FrontMatter } from "$sb/lib/frontmatter.ts";
 
 const pageWatchInterval = 5000;
 
@@ -46,6 +49,13 @@ export class Space {
     return fileMetaToPageMeta(
       await this.spacePrimitives.getFileMeta(`${name}.md`),
     );
+  }
+
+  async getPageFrontMatter(name: string): Promise<FrontMatter> {
+    const pageText = await this.readPage(name);
+    const pageTree = await parse(extendedMarkdownLanguage, pageText.text);
+    const frontMatter = await extractFrontmatter(pageTree);
+    return frontMatter;
   }
 
   async listPlugs(): Promise<FileMeta[]> {
