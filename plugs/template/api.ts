@@ -5,7 +5,7 @@ import { renderToText } from "$sb/lib/tree.ts";
 
 /**
  * Strips the template from its frontmatter and renders it.
- * The assumption is that the frontmatter has already been parsed and should not appear in thhe rendered output.
+ * The assumption is that the frontmatter has already been parsed and should not appear in the rendered output.
  * @param templateText the template text
  * @param data data to be rendered by the template
  * @param globals a set of global variables
