@@ -10,6 +10,13 @@ export function invokeFunction(
   return syscall("system.invokeFunction", name, ...args);
 }
 
+export function invokeFunctionOnServer(
+  name: string,
+  ...args: any[]
+): Promise<any> {
+  return syscall("system.invokeFunctionOnServer", name, ...args);
+}
+
 // Only available on the client
 export function invokeCommand(name: string, args?: string[]): Promise<any> {
   return syscall("system.invokeCommand", name, args);
